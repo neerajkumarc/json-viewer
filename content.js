@@ -52,27 +52,6 @@ function showJsonModal(jsonData) {
   controls.style.gap = "10px";
   controls.style.alignItems = "center";
 
-  // Expand/Collapse all buttons
-  const expandAllBtn = document.createElement("button");
-  expandAllBtn.textContent = "Expand All";
-  expandAllBtn.style.padding = "0.3em 0.8em";
-  expandAllBtn.style.fontSize = "12px";
-  expandAllBtn.style.backgroundColor = "#28a745";
-  expandAllBtn.style.color = "white";
-  expandAllBtn.style.border = "none";
-  expandAllBtn.style.borderRadius = "4px";
-  expandAllBtn.style.cursor = "pointer";
-
-  const collapseAllBtn = document.createElement("button");
-  collapseAllBtn.textContent = "Collapse All";
-  collapseAllBtn.style.padding = "0.3em 0.8em";
-  collapseAllBtn.style.fontSize = "12px";
-  collapseAllBtn.style.backgroundColor = "#dc3545";
-  collapseAllBtn.style.color = "white";
-  collapseAllBtn.style.border = "none";
-  collapseAllBtn.style.borderRadius = "4px";
-  collapseAllBtn.style.cursor = "pointer";
-
   // Close button
   const closeBtn = document.createElement("button");
   closeBtn.textContent = "×";
@@ -98,9 +77,6 @@ function showJsonModal(jsonData) {
   closeBtn.onmouseout = () => {
     closeBtn.style.backgroundColor = "transparent";
   };
-
-  controls.appendChild(expandAllBtn);
-  controls.appendChild(collapseAllBtn);
   controls.appendChild(closeBtn);
 
   header.appendChild(title);
@@ -123,9 +99,6 @@ function showJsonModal(jsonData) {
     const jsonTree = createCollapsibleJsonTree(parsed);
     jsonContainer.appendChild(jsonTree);
 
-    // Add event listeners for expand/collapse all
-    expandAllBtn.onclick = () => expandAll(jsonContainer);
-    collapseAllBtn.onclick = () => collapseAll(jsonContainer);
   } catch (e) {
     // If parsing fails, display as plain text
     const errorDiv = document.createElement("div");
@@ -291,39 +264,6 @@ function escapeHtml(text) {
     .replace(/"/g, "&quot;");
 }
 
-function expandAll(container) {
-  const toggleIcons = container.querySelectorAll(".toggle-icon");
-  const contents = container.querySelectorAll(".collapsible-content");
-
-  toggleIcons.forEach((icon) => {
-    icon.style.transform = "rotate(0deg)";
-  });
-
-  contents.forEach((content) => {
-    content.style.display = "block";
-  });
-
-  // Update header texts
-  container.querySelectorAll("div").forEach((div) => {
-    if (div.onclick && div.textContent.includes("...")) {
-      div.click();
-      div.click(); // Double click to ensure expanded state
-    }
-  });
-}
-
-function collapseAll(container) {
-  const toggleIcons = container.querySelectorAll(".toggle-icon");
-  const contents = container.querySelectorAll(".collapsible-content");
-
-  toggleIcons.forEach((icon) => {
-    icon.style.transform = "rotate(-90deg)";
-  });
-
-  contents.forEach((content) => {
-    content.style.display = "none";
-  });
-}
 
 // Add CSS for syntax highlighting and collapsible elements
 const style = document.createElement("style");
